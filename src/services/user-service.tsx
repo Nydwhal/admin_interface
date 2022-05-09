@@ -1,9 +1,11 @@
 import User from "../models/user";
 
+const baseUrl = process.env.IP_ADRESS;
+
 export default class UserService {
   static login(email: string, password: string) {
     return fetch(
-      `http://${process.env.REACT_APP_YNOV_IP_ADRESS}:8000/api/auth/login/?email=${email}&password=${password}`,
+      `http://${baseUrl}:8000/api/auth/login/?email=${email}&password=${password}`,
       {
         method: "POST",
       }
@@ -14,31 +16,25 @@ export default class UserService {
   }
 
   static getUsers(): Promise<User[]> {
-    return fetch(
-      `http://${process.env.REACT_APP_YNOV_IP_ADRESS}:8000/api/admin/users`,
-      {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    )
+    return fetch(`http://${baseUrl}:8000/api/admin/users`, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
       .then((response) => response.json())
       .catch((error) => this.handleError(error));
   }
 
   static getUser(id: string): Promise<User> {
-    return fetch(
-      `http://${process.env.REACT_APP_YNOV_IP_ADRESS}:8000/api/admin/user/?id=${id}`,
-      {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    )
+    return fetch(`http://${baseUrl}:8000/api/admin/user/?id=${id}`, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
       .then((response) => response.json())
       .catch((error) => this.handleError(error));
   }
@@ -50,7 +46,7 @@ export default class UserService {
     amount: number
   ): Promise<User> {
     return fetch(
-      `http://${process.env.REACT_APP_YNOV_IP_ADRESS}:8000/api/admin/user/edit/?id=${id}&email=${email}&password=${password}&amount=${amount}`,
+      `http://${baseUrl}:8000/api/admin/user/edit/?id=${id}&email=${email}&password=${password}&amount=${amount}`,
       {
         method: "POST",
       }
@@ -61,31 +57,25 @@ export default class UserService {
   }
 
   static deleteUser(id: string): Promise<void> {
-    return fetch(
-      `http://${process.env.REACT_APP_YNOV_IP_ADRESS}:8000/api/admin/user/delete/?id=${id}`,
-      {
-        method: "DELETE",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    ).then((response) => console.log(response));
+    return fetch(`http://${baseUrl}:8000/api/admin/user/delete/?id=${id}`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    }).then((response) => console.log(response));
   }
 
   static logout(): Promise<void> {
-    return fetch(
-      `http://${process.env.REACT_APP_YNOV_IP_ADRESS}:8000/api/admin/user/delete`,
-      {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    ).then(() => localStorage.setItem("token", ""));
+    return fetch(`http://${baseUrl}:8000/api/admin/user/delete`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    }).then(() => localStorage.setItem("token", ""));
   }
 
   static handleError(error: Error): void {
