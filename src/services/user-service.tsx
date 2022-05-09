@@ -3,7 +3,7 @@ import User from "../models/user";
 export default class UserService {
   static login(email: string, password: string) {
     return fetch(
-      `http://${process.env.REACT_APP_HOUSE_FIBER_IP_ADRESS}:8000/api/auth/login/?email=${email}&password=${password}`,
+      `http://${process.env.REACT_APP_YNOV_IP_ADRESS}:8000/api/auth/login/?email=${email}&password=${password}`,
       {
         method: "POST",
       }
@@ -15,7 +15,7 @@ export default class UserService {
 
   static getUsers(): Promise<User[]> {
     return fetch(
-      `http://${process.env.REACT_APP_HOUSE_FIBER_IP_ADRESS}:8000/api/admin/users`,
+      `http://${process.env.REACT_APP_YNOV_IP_ADRESS}:8000/api/admin/users`,
       {
         headers: {
           Accept: "application/json",
@@ -30,7 +30,7 @@ export default class UserService {
 
   static getUser(id: string): Promise<User> {
     return fetch(
-      `http://${process.env.REACT_APP_HOUSE_FIBER_IP_ADRESS}:8000/api/admin/user/?id=${id}`,
+      `http://${process.env.REACT_APP_YNOV_IP_ADRESS}:8000/api/admin/user/?id=${id}`,
       {
         headers: {
           Accept: "application/json",
@@ -50,7 +50,7 @@ export default class UserService {
     amount: number
   ): Promise<User> {
     return fetch(
-      `http://${process.env.REACT_APP_HOUSE_FIBER_IP_ADRESS}:8000/api/admin/user/edit/?id=${id}&email=${email}&password=${password}&amount=${amount}`,
+      `http://${process.env.REACT_APP_YNOV_IP_ADRESS}:8000/api/admin/user/edit/?id=${id}&email=${email}&password=${password}&amount=${amount}`,
       {
         method: "POST",
       }
@@ -62,7 +62,7 @@ export default class UserService {
 
   static deleteUser(id: string): Promise<void> {
     return fetch(
-      `http://${process.env.REACT_APP_HOUSE_FIBER_IP_ADRESS}:8000/api/admin/user/delete/?id=${id}`,
+      `http://${process.env.REACT_APP_YNOV_IP_ADRESS}:8000/api/admin/user/delete/?id=${id}`,
       {
         method: "DELETE",
         headers: {
@@ -76,7 +76,7 @@ export default class UserService {
 
   static logout(): Promise<void> {
     return fetch(
-      `http://${process.env.REACT_APP_HOUSE_FIBER_IP_ADRESS}:8000/api/admin/user/delete`,
+      `http://${process.env.REACT_APP_YNOV_IP_ADRESS}:8000/api/admin/user/delete`,
       {
         method: "POST",
         headers: {
